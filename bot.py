@@ -44,7 +44,10 @@ def predict(ticker: str, timeFrame = 30):
     print(bestFrame)
     print("Best score i =", bestIndex, "last =", len(stock) - 1, "shift =", bestShift)
     print(best)
-    futureFrame = stock[bestIndex + timeFrame : bestIndex + timeFrame * 2]
+    futureFrame = stock[bestIndex + timeFrame + 1 : bestIndex + timeFrame * 2 + 1]
+    for i in range(len(futureFrame) - 1):
+        futureFrame[i] -= bestShift
+        bestFrame[i] -= bestShift
 
     return best, lastFrame, bestFrame, futureFrame
 
