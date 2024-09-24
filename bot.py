@@ -18,9 +18,8 @@ def evaluateFrame(lastFrame, frame):
     return score
 
 def predict(ticker: str, timeFrame = 30):
-    msft = yf.Ticker(ticker)
 
-    stock = msft.history(period="1d", interval="1m")["Open"].tolist()
+    stock = yf.download(ticker, period="1d", interval="1m")["Open"].tolist()
     lastFrame = stock[-timeFrame : -1]
     lastFrame.append(stock[-1])
     print("Last frame")

@@ -2,9 +2,9 @@ import time
 import yfinance as yf
 from matplotlib import pyplot as plt
 from bot import predict  # Using your custom bot library
-
+ticker = "MSFT"
 # Run the prediction function with the specified time frame
-score, lastFrame, bestFrame, futureFrame = predict("MSFT", 30)
+score, lastFrame, bestFrame, futureFrame = predict(ticker, 30)
 
 if lastFrame and futureFrame:
     # Create x-axis values centered at 0: negative for lastFrame, positive for futureFrame
@@ -27,7 +27,7 @@ if lastFrame and futureFrame:
     plt.axvline(x=0, color='red', linestyle='--', label='Past | Future')
 
     # Display the score in the plot title for easy reference
-    plt.title(f"MSFT Stock Prediction (Score: {score})")
+    plt.title(f"{ticker} Stock Prediction (Score: {score})")
     plt.xlabel("Time relative to start, minutes")
     plt.ylabel("Price")
     plt.grid(True)
@@ -40,7 +40,7 @@ if lastFrame and futureFrame:
 
     while time.time() - start_time < 1800:  # Run for 5 minutes (300 seconds)
         # Get the latest stock price using yfinance
-        msft_data = yf.download('MSFT', period='1d', interval='1m')
+        msft_data = yf.download(ticker, period='1d', interval='1m')
         current_price = msft_data['Open'][-1]  # Get the last available closing price
 
         # Store current price for plotting
